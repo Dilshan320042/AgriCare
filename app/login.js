@@ -20,7 +20,7 @@ export default function Login() {
     if (isAdmin) {
       // Admin Login Logic
       if (email === 'admin@example.com' && password === 'admin123') {
-        router.push('/Welcome');
+        router.push('/Admin/Admin_Dashbord');
       } else {
         Alert.alert('Login Failed', 'Invalid Admin email or password.');
       }
