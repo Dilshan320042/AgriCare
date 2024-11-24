@@ -2,6 +2,7 @@ import React from 'react';
 import { View, Text, Button } from 'react-native';
 import { Link, useRouter } from 'expo-router';
 import { styles } from './styles';
+ 
 
 export default function HomeScreen() {
   const router = useRouter();
@@ -42,6 +43,14 @@ export default function HomeScreen() {
       title="click here"
       onPress ={() => router.push('/check')}
       />
+
+<Button
+  title="Go to Page One"
+  onPress={() => router.push('/one')}
+/>
+
+
+
     </View>
   );
 }
