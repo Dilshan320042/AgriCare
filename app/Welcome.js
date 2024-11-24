@@ -1,10 +1,8 @@
 import React from 'react';
 import { StyleSheet, View, ImageBackground, Text, SafeAreaView, TouchableOpacity } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
-import { useRouter,Link } from 'expo-router';
 
 export default function App() {
-  const router = useRouter();
   return (
     <SafeAreaView style={styles.container}>
       {/* Background Image */}
@@ -20,9 +18,7 @@ export default function App() {
           
           {/* "Let's Get Started" Button */}
           <TouchableOpacity style={styles.button}>
-            <Link href="/Welcome" style={styles.buttonTex}>
-            Let's get started
-          </Link>
+            <Text style={styles.buttonText}>Let's get started</Text>
           </TouchableOpacity>
         </LinearGradient>
       </ImageBackground>
