@@ -1,15 +1,13 @@
 import React from 'react';
 import { StyleSheet, View, ImageBackground, Text, SafeAreaView, TouchableOpacity } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
-import { useRouter, Link } from 'expo-router';
 
 export default function App() {
-  const router = useRouter();
-
   return (
     <SafeAreaView style={styles.container}>
       {/* Background Image */}
       <ImageBackground source={require('../assets/images/Wellcome.png')} style={styles.image}>
+
         {/* Gradient Overlay for Readability */}
         <LinearGradient
           colors={['rgba(0,0,0,0.6)', 'transparent']}
@@ -17,11 +15,11 @@ export default function App() {
         >
           <Text style={styles.title}>Welcome to AgriCare</Text>
           <Text style={styles.subtitle}>Enhancing Agricultural Productivity Through Technology</Text>
-
+          
           {/* "Let's Get Started" Button */}
-          <Link href="/login" style={styles.button}>
+          <TouchableOpacity style={styles.button}>
             <Text style={styles.buttonText}>Let's get started</Text>
-          </Link>
+          </TouchableOpacity>
         </LinearGradient>
       </ImageBackground>
     </SafeAreaView>
