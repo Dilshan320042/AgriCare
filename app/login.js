@@ -8,7 +8,7 @@ import {
   SafeAreaView,
   Alert,
 } from 'react-native';
-import { useRouter } from 'expo-router';
+import { Link, useRouter } from 'expo-router';
 
 export default function Login() {
   const router = useRouter(); // Using Expo Router for navigation
@@ -27,7 +27,7 @@ export default function Login() {
     } else {
       // User Login Logic
       if (email === 'user@example.com' && password === 'user123') {
-        router.push('/Welcome');
+        router.push('/user/Dashbord');
       } else {
         Alert.alert('Login Failed', 'Invalid User email or password.');
       }
@@ -94,7 +94,10 @@ export default function Login() {
           }
         >
           <Text style={styles.forgotText}>
-            Forgot your password? <Text style={styles.link}>Reset here</Text>
+            Forgot your password?{' '}
+            <Link href="/register" style={styles.registerText}>
+              Reset here
+            </Link>
           </Text>
         </TouchableOpacity>
 
@@ -103,7 +106,9 @@ export default function Login() {
           onPress={() => Alert.alert('Register', 'Redirect to Register page.')}
           style={styles.registerContainer}
         >
-          <Text style={styles.registerText}>Register new account</Text>
+          <Link href="/register" style={styles.registerText}>
+            <Text style={styles.registerText}>Register new account</Text>
+          </Link>
         </TouchableOpacity>
       </View>
     </SafeAreaView>
