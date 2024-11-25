@@ -3,6 +3,7 @@ import { View, Text, StyleSheet, Image, ScrollView, TouchableOpacity, TextInput 
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
 import { Ionicons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
+import { Link } from 'expo-router';
 
 export default function HomeScreen() {
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
@@ -77,7 +78,7 @@ export default function HomeScreen() {
         </TouchableOpacity>
       </View>
 
-      <Text style={styles.greeting}>Hi, Choudary Aoun</Text>
+      <Text style={styles.greeting}>Hi, Name</Text>
 
       <ScrollView contentContainerStyle={styles.cardContainer}>
         {filteredCrops.map((crop, index) => (
@@ -100,7 +101,9 @@ export default function HomeScreen() {
           <Ionicons name="add" size={24} color="#fff" />
         </TouchableOpacity>
         <TouchableOpacity style={styles.navButton}>
+          <Link href="/user/profilechange" style={styles.navButton}>
           <Ionicons name="person" size={24} color="#fff" />
+          </Link>
         </TouchableOpacity>
       </View>
 
@@ -183,4 +186,12 @@ const styles = StyleSheet.create({
     justifyContent: 'space-evenly',
     alignItems: 'center',
   },
+  backButton: {
+    position: 'absolute',
+    top: 40,
+    left: 20,
+    zIndex: 10, // Bring it to the front
+    padding: 10, // Increase the touchable area
+  },
+  
 });

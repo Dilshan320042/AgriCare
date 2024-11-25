@@ -19,14 +19,14 @@ export default function Login() {
   const handleLogin = () => {
     if (isAdmin) {
       // Admin Login Logic
-      if (email === 'admin@example.com' && password === 'admin123') {
+      if (email === 'Admin@example.com' && password === 'Admin123') {
         router.push('/Admin/Admin_Dashbord');
       } else {
         Alert.alert('Login Failed', 'Invalid Admin email or password.');
       }
     } else {
       // User Login Logic
-      if (email === 'user@example.com' && password === 'user123') {
+      if (email === 'User@example.com' && password === 'User123') {
         router.push('/user/Dashbord');
       } else {
         Alert.alert('Login Failed', 'Invalid User email or password.');
@@ -95,7 +95,7 @@ export default function Login() {
         >
           <Text style={styles.forgotText}>
             Forgot your password?{' '}
-            <Link href="/register" style={styles.registerText}>
+            <Link href="/Forgetpassword" style={styles.registerText}>
               Reset here
             </Link>
           </Text>

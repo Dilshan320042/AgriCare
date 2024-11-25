@@ -1,26 +1,45 @@
+import { Image } from 'expo-image';
 import React, { useState } from 'react';
-import { StyleSheet, View, Text, TextInput, TouchableOpacity, SafeAreaView, Alert } from 'react-native';
+import {
+  StyleSheet,
+  View,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  SafeAreaView,
+  Alert,
+} from 'react-native';
+import { useRouter } from 'expo-router'; // For navigation
 
 export default function ForgotPasswordScreen() {
+  const router = useRouter(); // Router for navigation
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [telephone, setTelephone] = useState('');
 
   const handleResetPassword = () => {
     if (!username || !email || !telephone) {
-      Alert.alert("Error", "Please enter your username, email, and telephone number.");
+      Alert.alert('Error', 'Please enter your username, email, and telephone number.');
       return;
     }
-    // Here you would typically call a password reset API.aa
-    // For now, we’ll just show an alert.
-    Alert.alert("Password Reset", "A password reset link has been sent to your email.");
+    Alert.alert('Password Reset', 'A password reset link has been sent to your email.');
   };
 
   return (
     <SafeAreaView style={styles.container}>
+      {/* Back Button */}
+      <TouchableOpacity style={styles.backButton} onPress={() => router.back()}>
+        <Image
+          source={require('../assets/images/Back.png')} // Ensure the path is correct
+          style={[styles.backImage, { tintColor: '#2E7D32' }]} // Green tint
+        />
+      </TouchableOpacity>
+
       <View style={styles.card}>
         <Text style={styles.title}>Forgot Password</Text>
-        <Text style={styles.subtitle}>Enter your username, email address, and telephone number, and we'll send you a link to reset your password.</Text>
+        <Text style={styles.subtitle}>
+          Enter your username, email address, and telephone number, and we'll send you a link to reset your password.
+        </Text>
 
         {/* Username Input */}
         <View style={styles.inputContainer}>
@@ -74,6 +93,18 @@ const styles = StyleSheet.create({
     backgroundColor: '#F5F5F5',
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  backButton: {
+    position: 'absolute',
+    top: 40,
+    left: 20,
+    zIndex: 10, // Ensures it's on top
+    padding: 10, // Larger touchable area
+  },
+  backImage: {
+    width: 24,
+    height: 24,
+    resizeMode: 'contain',
   },
   card: {
     width: '85%',
