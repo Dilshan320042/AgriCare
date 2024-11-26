@@ -9,12 +9,15 @@ import {
   TextInput,
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import { useRouter } from 'expo-router';
+import { Link, useRouter } from 'expo-router';
+import DateTimePickerModal from 'react-native-modal-datetime-picker';
 
 export default function Dashboard() {
-  const router = useRouter();
+  const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
+  const [selectedDate, setSelectedDate] = useState(null);
   const [isSearching, setIsSearching] = useState(false);
   const [searchText, setSearchText] = useState('');
+  const router = useRouter();
 
   const crops = [
     { id: '1', name: 'Paddy', image: require('../../assets/images/paddy.png') },
@@ -27,14 +30,23 @@ export default function Dashboard() {
     crop.name.toLowerCase().includes(searchText.toLowerCase())
   );
 
+  const showDatePicker = () => {
+    setDatePickerVisibility(true);
+  };
+
+  const hideDatePicker = () => {
+    setDatePickerVisibility(false);
+  };
+
   const toggleSearchBar = () => {
     setIsSearching(!isSearching);
     setSearchText('');
   };
-  const navigateToCropDetails = (crop) => { // Line ~38
+
+  const navigateToCropDetails = (crop) => {
     router.push({
       pathname: '/user/Cropdetails',
-      query: { crop: JSON.stringify(crop) }, // Line ~40
+      query: { crop: JSON.stringify(crop) },
     });
   };
 
@@ -44,7 +56,6 @@ export default function Dashboard() {
 
   return (
     <View style={styles.container}>
-      {/* Header */}
       <View style={styles.header}>
         <TouchableOpacity onPress={openMenu}>
           <Ionicons name="menu" size={24} color="#fff" />
@@ -69,7 +80,6 @@ export default function Dashboard() {
         </TouchableOpacity>
       </View>
 
-      {/* Content */}
       <ScrollView contentContainerStyle={styles.cardContainer}>
         {filteredCrops.map((crop) => (
           <TouchableOpacity
@@ -83,21 +93,31 @@ export default function Dashboard() {
         ))}
       </ScrollView>
 
-      {/* Bottom Navigation */}
       <View style={styles.bottomNav}>
-        <TouchableOpacity style={styles.navButton}>
-          <Ionicons name="home" size={24} color="#fff" />
-        </TouchableOpacity>
+      <TouchableOpacity style={styles.navButton} onPress={showDatePicker}>
+  <Ionicons name="calendar" size={24} color="#fff" />
+</TouchableOpacity>
+<DateTimePickerModal
+  isVisible={isDatePickerVisible}
+  mode="date"
+  onConfirm={(date) => {
+    setSelectedDate(date);
+    hideDatePicker();
+  }}
+  onCancel={hideDatePicker}
+/>
+
         <TouchableOpacity style={styles.navButton}>
           <Ionicons name="add" size={24} color="#fff" />
         </TouchableOpacity>
-        <TouchableOpacity style={styles.navButton}>
+        <Link href="/user/profilechange" style={styles.navButton}>
           <Ionicons name="person" size={24} color="#fff" />
-        </TouchableOpacity>
+        </Link>
       </View>
     </View>
   );
 }
+
 
 const styles = StyleSheet.create({
   container: {
