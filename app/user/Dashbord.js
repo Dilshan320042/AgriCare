@@ -44,6 +44,7 @@ export default function Dashboard() {
   };
 
   const navigateToCropDetails = (crop) => {
+    console.log("Navigating to Cropdetails with crop:", crop); // Debugging
     router.push({
       pathname: '/user/Cropdetails',
       query: { crop: JSON.stringify(crop) },
@@ -56,6 +57,7 @@ export default function Dashboard() {
 
   return (
     <View style={styles.container}>
+      {/* Header */}
       <View style={styles.header}>
         <TouchableOpacity onPress={openMenu}>
           <Ionicons name="menu" size={24} color="#fff" />
@@ -80,6 +82,7 @@ export default function Dashboard() {
         </TouchableOpacity>
       </View>
 
+      {/* Content */}
       <ScrollView contentContainerStyle={styles.cardContainer}>
         {filteredCrops.map((crop) => (
           <TouchableOpacity
@@ -93,32 +96,44 @@ export default function Dashboard() {
         ))}
       </ScrollView>
 
+      {/* Footer */}
       <View style={styles.bottomNav}>
-      <TouchableOpacity style={styles.navButton} onPress={showDatePicker}>
-  <Ionicons name="calendar" size={24} color="#fff" />
-</TouchableOpacity>
-<DateTimePickerModal
-  isVisible={isDatePickerVisible}
-  mode="date"
-  onConfirm={(date) => {
-    setSelectedDate(date);
-    hideDatePicker();
-  }}
-  onCancel={hideDatePicker}
-/>
+        <TouchableOpacity style={styles.navButton} onPress={showDatePicker}>
+          <View style={styles.iconContainer}>
+            <Ionicons name="calendar" size={28} color="#fff" />
+          </View>
+        </TouchableOpacity>
 
         <TouchableOpacity style={styles.navButton}>
-          <Ionicons name="add" size={24} color="#fff" />
+          <View style={[styles.iconContainer, styles.addButton]}>
+            <Ionicons name="add" size={32} color="#fff" />
+          </View>
         </TouchableOpacity>
-        <Link href="/user/profilechange" style={styles.navButton}>
-          <Ionicons name="person" size={24} color="#fff" />
-        </Link>
+
+        <View style={styles.navButton}>
+  <Link href="/user/profilechange">
+    <View style={styles.iconContainer}>
+      <Ionicons name="person" size={24} color="#fff" />
+    </View>
+  </Link>
+</View>
+
       </View>
+
+      <DateTimePickerModal
+        isVisible={isDatePickerVisible}
+        mode="date"
+        onConfirm={(date) => {
+          if (date) {
+            setSelectedDate(date);
+            hideDatePicker();
+          }
+        }}
+        onCancel={hideDatePicker}
+      />
     </View>
   );
 }
-
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -176,10 +191,54 @@ const styles = StyleSheet.create({
     color: '#2E7D32',
   },
   bottomNav: {
-    height: 70,
+    height: 80,
     backgroundColor: '#66BB6A',
     flexDirection: 'row',
     justifyContent: 'space-evenly',
     alignItems: 'center',
+    borderTopLeftRadius: 15,
+    borderTopRightRadius: 15,
+    shadowColor: '#000',
+    shadowOpacity: 0.2,
+    shadowOffset: { width: 0, height: -3 },
+    shadowRadius: 10,
   },
+  navButton: {
+    justifyContent: 'center',
+    alignItems: 'center',
+  },iconContainer: {
+  width: 60,
+  height: 60,
+  backgroundColor: '#4caf50',
+  borderRadius: 30,
+  justifyContent: 'center',
+  alignItems: 'center',
+  elevation: 5,
+  shadowColor: '#000',
+  shadowOpacity: 0.2,
+  shadowOffset: { width: 0, height: 2 },
+  shadowRadius: 5,
+  transition: 'transform 0.2s', // Smooth scaling
+},
+
+navButtonPressed: {
+  transform: [{ scale: 0.95 }],
+  backgroundColor: '#388E3C', // Slightly darker green when pressed
+},
+
+addButton: {
+  width: 70,
+  height: 70,
+  borderRadius: 35,
+  backgroundColor: '#ff9800',
+  justifyContent: 'center',
+  alignItems: 'center',
+  shadowColor: '#ffaa00',
+  shadowOpacity: 0.8,
+  shadowOffset: { width: 0, height: 0 },
+  shadowRadius: 20,
+  transform: [{ scale: 1 }],
+  transition: 'transform 0.2s', // Smooth scaling
+},
+
 });
